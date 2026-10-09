@@ -4,14 +4,23 @@ import { JournalItem } from '../../types';
 import { BookOpen, ChevronDown, Plus, Trash2, Calendar, Tag, Clock } from 'lucide-react';
 
 export const TodayJournalWidget: React.FC = () => {
-  const { journals, openModal, deleteJournal } = useLifeOS();
+  const { journals, openModal, deleteJournal, setWorkspace } = useLifeOS();
   const [selectedEntry, setSelectedEntry] = useState<JournalItem | null>(null);
 
   return (
     <div className="bg-white rounded-lg border border-neutral-200/70 shadow-2xs overflow-hidden select-none">
       {/* Top Header matching screenshot */}
       <div className="px-3.5 pt-3 pb-2 border-b border-neutral-100 flex items-center justify-between">
-        <h3 className="text-xs font-semibold text-neutral-800">Today's Journal</h3>
+        <button
+          onClick={() => setWorkspace('journal')}
+          className="text-xs font-semibold text-neutral-800 hover:text-amber-600 transition-colors flex items-center gap-1.5"
+          title="Buka Journal by LifeCanvas"
+        >
+          <span>Today's Journal</span>
+          <span className="text-[10px] font-medium px-1.5 py-0.5 bg-amber-50 text-amber-700 rounded border border-amber-200/60">
+            Full View →
+          </span>
+        </button>
 
         <div className="flex items-center gap-1.5">
           <div className="px-2 py-0.5 text-[11px] font-medium text-neutral-800 bg-neutral-100 rounded-md">

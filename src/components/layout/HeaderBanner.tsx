@@ -16,6 +16,10 @@ import {
   Flame,
   FileText,
   BookMarked,
+  Film,
+  Utensils,
+  ShieldCheck,
+  Briefcase,
   Search,
   RotateCcw,
   Sparkles,
@@ -165,6 +169,50 @@ export const HeaderBanner: React.FC<HeaderBannerProps> = ({
               <span>Journal</span>
             </button>
             <button
+              onClick={() => setWorkspace('movie-tracker')}
+              className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-all shrink-0 ${
+                workspace === 'movie-tracker'
+                  ? 'bg-neutral-900 text-white shadow-xs'
+                  : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/60'
+              }`}
+            >
+              <Film className="w-3.5 h-3.5" />
+              <span>Movie Tracker</span>
+            </button>
+            <button
+              onClick={() => setWorkspace('recipe-book')}
+              className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-all shrink-0 ${
+                workspace === 'recipe-book'
+                  ? 'bg-neutral-900 text-white shadow-xs'
+                  : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/60'
+              }`}
+            >
+              <Utensils className="w-3.5 h-3.5" />
+              <span>Recipe Book</span>
+            </button>
+            <button
+              onClick={() => setWorkspace('certificate-tracker')}
+              className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-all shrink-0 ${
+                workspace === 'certificate-tracker'
+                  ? 'bg-neutral-900 text-white shadow-xs'
+                  : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/60'
+              }`}
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Certificates</span>
+            </button>
+            <button
+              onClick={() => setWorkspace('travel-backpack')}
+              className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-all shrink-0 ${
+                workspace === 'travel-backpack'
+                  ? 'bg-neutral-900 text-white shadow-xs'
+                  : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/60'
+              }`}
+            >
+              <Briefcase className="w-3.5 h-3.5" />
+              <span>Travel Backpack</span>
+            </button>
+            <button
               onClick={() => setWorkspace('doctor-consultation')}
               className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-all shrink-0 ${
                 workspace === 'doctor-consultation'
@@ -300,6 +348,10 @@ export const HeaderBanner: React.FC<HeaderBannerProps> = ({
             {workspace === 'habit-tracker' && 'Habit Tracker by LifeCanvas'}
             {workspace === 'notes' && 'Notes by LifeCanvas'}
             {workspace === 'journal' && 'Journal by LifeCanvas'}
+            {workspace === 'movie-tracker' && 'Movie Tracker by LifeCanvas'}
+            {workspace === 'recipe-book' && 'Recipe Book by LifeCanvas'}
+            {workspace === 'certificate-tracker' && 'Certificate Tracker by LifeCanvas'}
+            {workspace === 'travel-backpack' && 'Travel Backpack by LifeCanvas'}
             {workspace === 'doctor-consultation' && 'Doctor Consultation Tracker'}
             {workspace === 'contacts' && 'Kontak'}
             {workspace === 'subscriptions' && 'Subscription Tracker'}
@@ -317,6 +369,10 @@ export const HeaderBanner: React.FC<HeaderBannerProps> = ({
             {workspace === 'habit-tracker' && 'Weekly interactive habit matrix, streak counters, completion percentages & daily routines'}
             {workspace === 'notes' && 'Personal knowledge base, project documentation, book insights & Notion-style digital notebook system'}
             {workspace === 'journal' && 'Mindful daily reflection, gratitude journal, mood tracker & personal highlights'}
+            {workspace === 'movie-tracker' && 'Watchlist organizer for movies, TV shows & anime with streaming platforms, ratings & reviews'}
+            {workspace === 'recipe-book' && 'Personal digital cookbook with structured ingredients, interactive cooking steps & nutrition'}
+            {workspace === 'certificate-tracker' && 'Centralized vault for passports, licenses, academic degrees & automated expiry alerts'}
+            {workspace === 'travel-backpack' && 'Smart trip packing checklist, cabin & luggage weight calculator & reusable trip templates'}
             {workspace === 'doctor-consultation' && 'Personal medical consultation log, prescriptions, vitals & doctor directory'}
             {workspace === 'contacts' && 'Personal CRM, relationship directory, birthdays & interaction history'}
             {workspace === 'subscriptions' && 'Recurring subscription management, renewal schedule & cost optimization'}

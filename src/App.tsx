@@ -16,6 +16,10 @@ import { WeightTrackerView } from './components/weight-tracker/WeightTrackerView
 import { HabitTrackerView } from './components/habit-tracker/HabitTrackerView';
 import { NotesView } from './components/notes/NotesView';
 import { JournalView } from './components/journal/JournalView';
+import { MovieTrackerView } from './components/movie-tracker/MovieTrackerView';
+import { RecipeBookView } from './components/recipe-book/RecipeBookView';
+import { CertificateTrackerView } from './components/certificate-tracker/CertificateTrackerView';
+import { TravelBackpackView } from './components/travel-backpack/TravelBackpackView';
 import { ActionModals } from './components/modals/ActionModals';
 import { QuickActions } from './components/life-planner/QuickActions';
 import { BudgetsWidget } from './components/life-planner/BudgetsWidget';
@@ -35,6 +39,10 @@ import {
   Flame,
   FileText,
   BookMarked,
+  Film,
+  Utensils,
+  ShieldCheck,
+  Briefcase,
   Plus,
   X,
   CheckSquare,
@@ -63,6 +71,10 @@ const AppContent: React.FC = () => {
     habits,
     notes,
     detailedJournals,
+    movies,
+    recipes,
+    certificates,
+    travelItems,
   } = useLifeOS();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [showFabMenu, setShowFabMenu] = useState(false);
@@ -76,6 +88,10 @@ const AppContent: React.FC = () => {
     { id: 'habit-tracker', label: 'Habit Tracker', icon: Flame, count: habits.filter((h) => !h.completedToday).length },
     { id: 'notes', label: 'Notes by LifeCanvas', icon: FileText, count: notes.length },
     { id: 'journal', label: 'Journal by LifeCanvas', icon: BookMarked, count: detailedJournals.length },
+    { id: 'movie-tracker', label: 'Movie Tracker', icon: Film, count: movies.length },
+    { id: 'recipe-book', label: 'Recipe Book', icon: Utensils, count: recipes.length },
+    { id: 'certificate-tracker', label: 'Certificate Tracker', icon: ShieldCheck, count: certificates.length },
+    { id: 'travel-backpack', label: 'Travel Backpack', icon: Briefcase, count: travelItems.filter((t) => !t.isPacked).length },
     { id: 'doctor-consultation', label: 'Konsultasi Dokter', icon: Stethoscope, count: consultations.length },
     { id: 'household-items', label: 'Household Items', icon: Home, count: householdItems.length },
     { id: 'wishlist', label: 'Wishlist Tracker', icon: Gift, count: wishlist.length },
@@ -103,6 +119,10 @@ const AppContent: React.FC = () => {
         {workspace === 'habit-tracker' && <HabitTrackerView />}
         {workspace === 'notes' && <NotesView />}
         {workspace === 'journal' && <JournalView />}
+        {workspace === 'movie-tracker' && <MovieTrackerView />}
+        {workspace === 'recipe-book' && <RecipeBookView />}
+        {workspace === 'certificate-tracker' && <CertificateTrackerView />}
+        {workspace === 'travel-backpack' && <TravelBackpackView />}
         {workspace === 'doctor-consultation' && <DoctorConsultationView />}
         {workspace === 'household-items' && <HouseholdTrackerView />}
         {workspace === 'wishlist' && <WishlistView />}
@@ -132,6 +152,10 @@ const AppContent: React.FC = () => {
                   {workspace === 'habit-tracker' && <Flame className="w-4 h-4" />}
                   {workspace === 'notes' && <FileText className="w-4 h-4" />}
                   {workspace === 'journal' && <BookMarked className="w-4 h-4" />}
+                  {workspace === 'movie-tracker' && <Film className="w-4 h-4" />}
+                  {workspace === 'recipe-book' && <Utensils className="w-4 h-4" />}
+                  {workspace === 'certificate-tracker' && <ShieldCheck className="w-4 h-4" />}
+                  {workspace === 'travel-backpack' && <Briefcase className="w-4 h-4" />}
                   {workspace === 'doctor-consultation' && <Stethoscope className="w-4 h-4" />}
                   {workspace === 'household-items' && <Home className="w-4 h-4" />}
                   {workspace === 'wishlist' && <Gift className="w-4 h-4" />}

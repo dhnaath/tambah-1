@@ -23,6 +23,10 @@ import {
   WeightProfile,
   NoteItem,
   DetailedJournalEntry,
+  MovieItem,
+  RecipeItem,
+  CertificateItem,
+  TravelBackpackItem,
 } from '../types';
 import {
   INITIAL_TASKS,
@@ -48,6 +52,10 @@ import {
   INITIAL_WEIGHT_LOGS,
   INITIAL_LIFE_NOTES,
   INITIAL_DETAILED_JOURNALS,
+  INITIAL_MOVIES,
+  INITIAL_RECIPES,
+  INITIAL_CERTIFICATES,
+  INITIAL_TRAVEL_ITEMS,
 } from '../data/initialData';
 
 interface LifeOSContextType {
@@ -81,6 +89,10 @@ interface LifeOSContextType {
   weightProfile: WeightProfile;
   notes: NoteItem[];
   detailedJournals: DetailedJournalEntry[];
+  movies: MovieItem[];
+  recipes: RecipeItem[];
+  certificates: CertificateItem[];
+  travelItems: TravelBackpackItem[];
 
   // Task Actions
   toggleTask: (id: string) => void;
@@ -187,6 +199,30 @@ interface LifeOSContextType {
   updateDetailedJournal: (id: string, entry: Partial<DetailedJournalEntry>) => void;
   deleteDetailedJournal: (id: string) => void;
   toggleFavoriteJournal: (id: string) => void;
+
+  // Movie Tracker Actions
+  addMovie: (item: Omit<MovieItem, 'id'>) => void;
+  updateMovie: (id: string, item: Partial<MovieItem>) => void;
+  deleteMovie: (id: string) => void;
+  toggleFavoriteMovie: (id: string) => void;
+
+  // Recipe Book Actions
+  addRecipe: (item: Omit<RecipeItem, 'id'>) => void;
+  updateRecipe: (id: string, item: Partial<RecipeItem>) => void;
+  deleteRecipe: (id: string) => void;
+  toggleFavoriteRecipe: (id: string) => void;
+
+  // Certificate Tracker Actions
+  addCertificate: (item: Omit<CertificateItem, 'id'>) => void;
+  updateCertificate: (id: string, item: Partial<CertificateItem>) => void;
+  deleteCertificate: (id: string) => void;
+
+  // Travel Backpack Actions
+  addTravelItem: (item: Omit<TravelBackpackItem, 'id'>) => void;
+  updateTravelItem: (id: string, item: Partial<TravelBackpackItem>) => void;
+  deleteTravelItem: (id: string) => void;
+  togglePackedTravelItem: (id: string) => void;
+  resetTripPacking: (tripName?: string) => void;
 
   // Modals
   activeModal: string | null;
@@ -302,6 +338,18 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [detailedJournals, setDetailedJournals] = useState<DetailedJournalEntry[]>(() =>
     loadFromStorage('detailedJournals', INITIAL_DETAILED_JOURNALS)
   );
+  const [movies, setMovies] = useState<MovieItem[]>(() =>
+    loadFromStorage('movies', INITIAL_MOVIES)
+  );
+  const [recipes, setRecipes] = useState<RecipeItem[]>(() =>
+    loadFromStorage('recipes', INITIAL_RECIPES)
+  );
+  const [certificates, setCertificates] = useState<CertificateItem[]>(() =>
+    loadFromStorage('certificates', INITIAL_CERTIFICATES)
+  );
+  const [travelItems, setTravelItems] = useState<TravelBackpackItem[]>(() =>
+    loadFromStorage('travelItems', INITIAL_TRAVEL_ITEMS)
+  );
 
   // Sync state to storage
   useEffect(() => { saveToStorage('workspace', workspace); }, [workspace]);
@@ -327,6 +375,10 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   useEffect(() => { saveToStorage('weightProfile', weightProfile); }, [weightProfile]);
   useEffect(() => { saveToStorage('lifeNotes', notes); }, [notes]);
   useEffect(() => { saveToStorage('detailedJournals', detailedJournals); }, [detailedJournals]);
+  useEffect(() => { saveToStorage('movies', movies); }, [movies]);
+  useEffect(() => { saveToStorage('recipes', recipes); }, [recipes]);
+  useEffect(() => { saveToStorage('certificates', certificates); }, [certificates]);
+  useEffect(() => { saveToStorage('travelItems', travelItems); }, [travelItems]);
 
   // Modals
   const openModal = (name: string) => setActiveModal(name);
@@ -910,6 +962,98 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     );
   };
 
+  // Movie Tracker Actions
+  const addMovie = (itemData: Omit<MovieItem, 'id'>) => {
+    const newItem: MovieItem = {
+      ...itemData,
+      id: 'mov-' + Date.now(),
+    };
+    setMovies((prev) => [newItem, ...prev]);
+  };
+
+  const updateMovie = (id: string, updatedData: Partial<MovieItem>) => {
+    setMovies((prev) => prev.map((m) => (m.id === id ? { ...m, ...updatedData } : m)));
+  };
+
+  const deleteMovie = (id: string) => {
+    setMovies((prev) => prev.filter((m) => m.id !== id));
+  };
+
+  const toggleFavoriteMovie = (id: string) => {
+    setMovies((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, isFavorite: !m.isFavorite } : m))
+    );
+  };
+
+  // Recipe Book Actions
+  const addRecipe = (itemData: Omit<RecipeItem, 'id'>) => {
+    const newItem: RecipeItem = {
+      ...itemData,
+      id: 'rec-' + Date.now(),
+    };
+    setRecipes((prev) => [newItem, ...prev]);
+  };
+
+  const updateRecipe = (id: string, updatedData: Partial<RecipeItem>) => {
+    setRecipes((prev) => prev.map((r) => (r.id === id ? { ...r, ...updatedData } : r)));
+  };
+
+  const deleteRecipe = (id: string) => {
+    setRecipes((prev) => prev.filter((r) => r.id !== id));
+  };
+
+  const toggleFavoriteRecipe = (id: string) => {
+    setRecipes((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, isFavorite: !r.isFavorite } : r))
+    );
+  };
+
+  // Certificate Tracker Actions
+  const addCertificate = (itemData: Omit<CertificateItem, 'id'>) => {
+    const newItem: CertificateItem = {
+      ...itemData,
+      id: 'cert-' + Date.now(),
+    };
+    setCertificates((prev) => [newItem, ...prev]);
+  };
+
+  const updateCertificate = (id: string, updatedData: Partial<CertificateItem>) => {
+    setCertificates((prev) => prev.map((c) => (c.id === id ? { ...c, ...updatedData } : c)));
+  };
+
+  const deleteCertificate = (id: string) => {
+    setCertificates((prev) => prev.filter((c) => c.id !== id));
+  };
+
+  // Travel Backpack Actions
+  const addTravelItem = (itemData: Omit<TravelBackpackItem, 'id'>) => {
+    const newItem: TravelBackpackItem = {
+      ...itemData,
+      id: 'trv-' + Date.now(),
+    };
+    setTravelItems((prev) => [newItem, ...prev]);
+  };
+
+  const updateTravelItem = (id: string, updatedData: Partial<TravelBackpackItem>) => {
+    setTravelItems((prev) => prev.map((t) => (t.id === id ? { ...t, ...updatedData } : t)));
+  };
+
+  const deleteTravelItem = (id: string) => {
+    setTravelItems((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const togglePackedTravelItem = (id: string) => {
+    setTravelItems((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, isPacked: !t.isPacked } : t))
+    );
+  };
+
+  const resetTripPacking = (tripName?: string) => {
+    setTravelItems((prev) =>
+      prev.map((t) => (!tripName || t.tripName === tripName ? { ...t, isPacked: false } : t))
+    );
+  };
+
   // Defaults Reset
   const resetToDefaults = () => {
     setTasks(INITIAL_TASKS);
@@ -934,6 +1078,10 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setWeightProfile(INITIAL_WEIGHT_PROFILE);
     setNotes(INITIAL_LIFE_NOTES);
     setDetailedJournals(INITIAL_DETAILED_JOURNALS);
+    setMovies(INITIAL_MOVIES);
+    setRecipes(INITIAL_RECIPES);
+    setCertificates(INITIAL_CERTIFICATES);
+    setTravelItems(INITIAL_TRAVEL_ITEMS);
   };
 
   // Calculated values
@@ -999,6 +1147,10 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         weightProfile,
         notes,
         detailedJournals,
+        movies,
+        recipes,
+        certificates,
+        travelItems,
         toggleTask,
         addTask,
         deleteTask,
@@ -1067,6 +1219,22 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         updateDetailedJournal,
         deleteDetailedJournal,
         toggleFavoriteJournal,
+        addMovie,
+        updateMovie,
+        deleteMovie,
+        toggleFavoriteMovie,
+        addRecipe,
+        updateRecipe,
+        deleteRecipe,
+        toggleFavoriteRecipe,
+        addCertificate,
+        updateCertificate,
+        deleteCertificate,
+        addTravelItem,
+        updateTravelItem,
+        deleteTravelItem,
+        togglePackedTravelItem,
+        resetTripPacking,
         activeModal,
         openModal,
         closeModal,

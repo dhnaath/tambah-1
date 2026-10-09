@@ -7,6 +7,10 @@ export type WorkspaceMode =
   | 'habit-tracker'
   | 'notes'
   | 'journal'
+  | 'movie-tracker'
+  | 'recipe-book'
+  | 'certificate-tracker'
+  | 'travel-backpack'
   | 'doctor-consultation' 
   | 'household-items'
   | 'wishlist'
@@ -397,6 +401,122 @@ export interface DetailedJournalEntry {
   photoUrl?: string;
   favorite?: boolean;
 }
+
+// Movie Tracker by LifeCanvas Types
+export type MovieWatchStatus = 'Want to Watch' | 'Watching' | 'Completed' | 'Dropped';
+export type MovieFormatType = 'Movie' | 'TV Series' | 'Documentary' | 'Anime' | 'Miniseries';
+export type StreamingPlatform =
+  | 'Netflix'
+  | 'Disney+ Hotstar'
+  | 'Prime Video'
+  | 'Apple TV+'
+  | 'HBO GO / Max'
+  | 'Bioskop / Cinema'
+  | 'YouTube / Lainnya';
+
+export interface MovieItem {
+  id: string;
+  title: string;
+  type: MovieFormatType;
+  genre: string[];
+  status: MovieWatchStatus;
+  platform: StreamingPlatform;
+  releaseYear: number;
+  directorOrCreator?: string;
+  rating?: number; // 1 to 5 stars
+  currentProgress?: string; // e.g. "S1 E5 / 10" or "120 min"
+  watchedDate?: string;
+  reviewNotes?: string;
+  posterUrl?: string;
+  isFavorite: boolean;
+}
+
+// Recipe Book by LifeCanvas Types
+export type RecipeCategory =
+  | 'Sarapan (Breakfast)'
+  | 'Hidangan Utama (Main Course)'
+  | 'Sup & Sayur'
+  | 'Camilan & Dessert'
+  | 'Minuman & Smoothie'
+  | 'Meal Prep & Diet';
+
+export type RecipeDifficulty = 'Mudah' | 'Sedang' | 'Chef Level';
+
+export interface RecipeIngredient {
+  name: string;
+  amount: string;
+}
+
+export interface RecipeItem {
+  id: string;
+  title: string;
+  category: RecipeCategory;
+  difficulty: RecipeDifficulty;
+  prepTimeMinutes: number;
+  cookTimeMinutes: number;
+  servings: number;
+  caloriesPerServing?: number;
+  ingredients: RecipeIngredient[];
+  steps: string[];
+  dietaryTags: string[]; // e.g. High Protein, Low Carb, Vegan, Halal, Comfort Food
+  notes?: string;
+  photoUrl?: string;
+  isFavorite: boolean;
+  rating?: number;
+}
+
+// Certificate & Document Tracker by LifeCanvas Types
+export type CertificateCategory =
+  | 'Identitas & Kependudukan'
+  | 'Paspor, Visa & Imigrasi'
+  | 'Pendidikan & Ijazah'
+  | 'Sertifikasi Profesional'
+  | 'Lisensi & Surat Izin (SIM/STNK)'
+  | 'Polis Asuransi & Legal';
+
+export type DocumentStatus = 'Active' | 'Expiring Soon' | 'Expired' | 'Lifetime';
+
+export interface CertificateItem {
+  id: string;
+  title: string;
+  category: CertificateCategory;
+  documentNumber: string;
+  issuer: string; // e.g. Dirjen Imigrasi, Kemendikbud, AWS, Korlantas Polri
+  holderName: string;
+  issueDate: string; // YYYY-MM-DD
+  expiryDate?: string; // YYYY-MM-DD or undefined if lifetime
+  status: DocumentStatus;
+  physicalLocation: string; // e.g. "Brankas Rumah Map Biru", "Dompet Utama"
+  digitalFileLink?: string; // e.g. "Google Drive /Vault/Passport.pdf"
+  renewalCostEstimate?: number;
+  notes?: string;
+}
+
+// Travel Backpack & Packing List by LifeCanvas Types
+export type PackingCategory =
+  | 'Pakaian & Alas Kaki'
+  | 'Dokumen & Uang'
+  | 'Elektronik & Gadget'
+  | 'Toiletries & Perawatan'
+  | 'Obat & P3K'
+  | 'Perlengkapan Outdoor & Lainnya';
+
+export type TripType = 'Liburan (Leisure)' | 'Perjalanan Bisnis' | 'Backpacking & Alam' | 'Akhir Pekan (Staycation)';
+
+export interface TravelBackpackItem {
+  id: string;
+  name: string;
+  category: PackingCategory;
+  quantity: number;
+  weightGrams: number; // weight per item in grams
+  isPacked: boolean;
+  isEssential: boolean;
+  tripName: string; // e.g. "Kyoto & Tokyo Autumn Trip", "Bali Workcation"
+  tripType: TripType;
+  bagSection: 'Cabin / Carry-On' | 'Checked Baggage' | 'Personal Daypack';
+  notes?: string;
+}
+
 
 
 
