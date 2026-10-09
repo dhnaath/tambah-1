@@ -1,0 +1,6 @@
+{
+  "name": "Life Planner & Finance OS",
+  "description": "Clean, responsive Notion-inspired Life Planner and Finance OS web app for daily productivity, habits, goals, and personal finances.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
